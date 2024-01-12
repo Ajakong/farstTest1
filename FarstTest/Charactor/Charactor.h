@@ -6,6 +6,7 @@
 
 class File;
 
+
 /// <summary>
 /// 画像の切り抜き矩形情報
 /// </summary>
@@ -22,16 +23,22 @@ struct CutRect
 class Charactor : public Actor
 {
 public:
-	Charactor(FileManager& fileManager, std::wstring fileNameBase);
-	Charactor(FileManager& fileManager, std::wstring fileNameBase, const Position2& pos, float scale = 1.0f);
+	//アニメーションのお尻を何桁にするのか決める
+	Charactor(FileManager& fileManager, std::wstring fileNameBase,int digitsNum);
+	Charactor(FileManager& fileManager, std::wstring fileNameBase, int digitsNum, const Position2& pos, float scale = 1.0f);
 	virtual ~Charactor();
 
 	void ChangeAnimation(const std::string& animName);
-	void Update();
-	void Draw();
+	virtual void Update();
+	virtual void Draw();
+	
 
 protected:
 	using CutTable_t = std::map<std::string, CutRect>;
+
+	std::string m_currentAnimatingName = "";
+	CutRect m_currentCut = {};
+
 
 	void Init(const std::wstring& fileNameBase);
 	/// <summary>
@@ -41,6 +48,8 @@ protected:
 	/// <param name="dataPath"></param>
 	/// <param name="cutTable"></param>
 	void LoadCutData(const wchar_t* dataPath, CutTable_t& cutTable);
+	void SetOrigin(int origin);
+
 
 protected:
 	// 左右フリップするか
@@ -53,9 +62,12 @@ protected:
 
 	// 現在のアニメーションフレーム
 	int m_frame = 0;
+	int m_origin = 0;
 	// 現在のアニメーション1枚当たりのフレーム数
 	int m_currentAnimInterval = 5;
 	// スケール値
 	const float m_drawScale = 3.0f;
+
+	int m_digits = 1;
 };
 

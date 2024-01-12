@@ -6,6 +6,7 @@
 
 
 class Charactor;
+class ControllerCharactor;
 class Actor;
 class File;
 
@@ -20,13 +21,14 @@ public:
 private:
     std::shared_ptr<File> m_imgFile;
     std::shared_ptr<File> m_btnImg;
-    std::shared_ptr<Charactor> m_hero;
-    std::shared_ptr<Charactor> m_monk;
+    std::shared_ptr<ControllerCharactor> m_hero;
+    std::shared_ptr<ControllerCharactor> m_monk;
 
     std::vector<std::shared_ptr<Actor>> m_actors;
 
     int m_btnFrame = 0;
     int m_frame = 0;
+    int m_digits;
     float m_fps = 0.0f;
 
     // メンバ関数ポインタの宣言
