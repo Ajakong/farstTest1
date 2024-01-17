@@ -3,6 +3,7 @@
 
 class Input;
 
+//制御できるキャラクター　
 class ControllerCharactor : public Charactor
 {
 
@@ -11,10 +12,11 @@ public:
 	ControllerCharactor(FileManager& fileManager, std::wstring fileNameBase, int digits);
 	ControllerCharactor(FileManager& fileManager, std::wstring fileNameBase, int digits, const Position2& pos, float scale = 1.0f);
 
-	void Operate(const Input& input);
+	
 	void Move(const Vector2& vec);
-
-	virtual void Update(const Input& input);
+	void SetPosition(const Position2& mov);
+	virtual void Operate(const Input& input);
+	virtual void Update();
 	virtual void Draw();
 };
 

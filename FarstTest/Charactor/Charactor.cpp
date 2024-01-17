@@ -17,6 +17,7 @@ Charactor::Charactor(FileManager& fileManager, std::wstring fileNameBase, int di
 	Actor(m_fileManager),
 	m_digits(digitsNum)
 {
+	Init(fileNameBase);
 }
 
 Charactor::~Charactor()
@@ -28,7 +29,12 @@ Charactor::~Charactor()
 void Charactor::ChangeAnimation(const std::string& animName)
 {
 	m_currentAnimatingName = animName;
-	m_frame = 0;
+	m_frame = 0;//アニメーションが切り替わるとリセット
+}
+
+void Charactor::SetAnimationSpeed(int interval)
+{
+	m_currentAnimInterval = interval;
 }
 
 void Charactor::Update()
@@ -36,21 +42,16 @@ void Charactor::Update()
 	if (m_currentAnimatingName != "")
 	{
 		auto idx=(m_frame / m_currentAnimInterval)+m_origin;
-		std::ostringstream oss;
-		oss << m_currentAnimatingName;
-		oss << std::setw(m_digits) << std::setfill('0') << idx;
-		oss << ".png";
-		auto it = m_cutTable.find(oss.str());
+		auto animName=GetAnimationString(m_currentAnimatingName, idx);
+		//もしカウントアップの結果もうアニメーション枚数がない場合
+		//またアニメーション番号を0にしてやり直す
+		auto it = m_cutTable.find(animName);
 		if (it == m_cutTable.end())
 		{
-			idx = 0;
 			m_frame = 0;
 			auto idx = (m_frame / m_currentAnimInterval) + m_origin;
-			std::ostringstream oss;
-			oss << m_currentAnimatingName;
-			oss << std::setw(m_digits) << std::setfill('0') << idx;
-			oss << ".png";
-			it = m_cutTable.find(oss.str());
+			animName = GetAnimationString(m_currentAnimatingName, idx);
+			it = m_cutTable.find(animName);
 			if (it == m_cutTable.end())
 			{
 				m_currentAnimatingName = "";
@@ -65,16 +66,20 @@ void Charactor::Update()
 
 void Charactor::Draw()
 {
-	
+	//Initが呼び出されてねい
 
 	auto it = m_cutTable.begin();
 	CutRect rc = {};
 	if (m_currentAnimatingName == "")
 	{
+		
 		for (int i = 0; i < (m_frame / m_currentAnimInterval) % m_cutTable.size(); i++)
 		{
 			it++;
 		}
+		
+
+		
 		rc = it->second;
 	}
 	else
@@ -93,6 +98,15 @@ void Charactor::SetOrigin(int origin)
 {
 	m_origin = origin;
 
+}
+
+std::string Charactor::GetAnimationString(const std::string& basename, int index)
+{
+	std::ostringstream oss;
+	oss << m_currentAnimatingName;
+	oss << std::setw(m_digits) << std::setfill('0') << index;
+	oss << ".png";
+	return oss.str();//文字列として返すためにstr()関数で返す
 }
 
 

@@ -9,6 +9,7 @@
 #include "../FileSystem/FileManager.h"
 #include "../FileSystem/File.h"
 #include "../Charactor/ControllerCharactor.h"
+#include"../Charactor/Charactor.h"
 #include "../Charactor/Actor.h"
 
 
@@ -19,8 +20,14 @@ GamePlayingScene::GamePlayingScene(SceneManager& manager) :
 	m_imgFile = fileMgr.LoadGraphic(L"./Image/game.png");
 	m_btnImg = fileMgr.LoadGraphic(L"./Image/UI/xbox_buttons.png", true);
 	
-	m_hero = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/hero",m_digits, Position2{ 220, 240 }, 3.0f);
-	m_monk = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/monk",m_digits, Position2{ 420, 240 }, 2.0f);
+	m_hero = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/hero",1 ,Position2{ 220, 240 }, 3.0f);
+	m_monk = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/monk",2, Position2{ 420, 240 }, 2.0f);
+	m_monk->SetOrigin(1);
+
+	std::string animName = "adventurer - run - ";
+	m_hero->ChangeAnimation(animName);
+	animName = "jump";
+	m_monk->ChangeAnimation(animName);
 
 	m_actors.push_back(m_hero);
 	m_actors.push_back(m_monk);
@@ -151,8 +158,7 @@ void GamePlayingScene::Update(Input& input)
 {
 	m_fps = GetFPS();
 	(this->*m_updateFunc)(input);
-	m_hero->Update(input);
-	m_monk->Update(input);
+	
 }
 
 void GamePlayingScene::Draw()
@@ -188,6 +194,8 @@ void GamePlayingScene::NormalUpdate(Input& input)
 	{
 		actor->Update();
 	}
+	m_hero->Operate(input);
+	m_monk->Operate(input);
 }
 
 void GamePlayingScene::FadeOutUpdate(Input& input)
