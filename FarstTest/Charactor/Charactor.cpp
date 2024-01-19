@@ -94,6 +94,8 @@ void Charactor::Draw()
 		m_imgFile->GetHandle(), true,m_isTurn);
 }
 
+
+
 void Charactor::SetOrigin(int origin)
 {
 	m_origin = origin;

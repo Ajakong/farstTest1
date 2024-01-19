@@ -30,6 +30,11 @@ void Application::Terminate()
     DxLib_End();
 }
 
+float Application::GetGravity() const
+{
+    return 0.5f;
+}
+
 bool Application::Init()
 {
     ChangeWindowMode(true); // ウィンドウモードにします

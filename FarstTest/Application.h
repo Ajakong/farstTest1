@@ -24,6 +24,8 @@ private:
 	/// 後処理を行う
 	/// </summary>
 	void Terminate();
+
+	
 public:
 	/// <summary>
 	/// Applicationのシングルトンインスタンスを返す
@@ -37,6 +39,8 @@ public:
 
 	bool Init();
 	void Run();
+
+	float GetGravity() const;
 
 	const Size& GetWindowSize() const;
 

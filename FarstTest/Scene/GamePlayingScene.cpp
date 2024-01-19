@@ -20,11 +20,11 @@ GamePlayingScene::GamePlayingScene(SceneManager& manager) :
 	m_imgFile = fileMgr.LoadGraphic(L"./Image/game.png");
 	m_btnImg = fileMgr.LoadGraphic(L"./Image/UI/xbox_buttons.png", true);
 	
-	m_hero = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/hero",1 ,Position2{ 220, 240 }, 3.0f);
-	m_monk = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/monk",2, Position2{ 420, 240 }, 2.0f);
+	m_hero = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/hero",PlayerType::hero,1 ,Position2{ 220, 240 }, 3.0f);
+	m_monk = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/monk",PlayerType::hero,2, Position2{ 420, 240 }, 2.0f);
 	m_monk->SetOrigin(1);
 
-	std::string animName = "adventurer - run - ";
+	std::string animName = "adventurer-run-";
 	m_hero->ChangeAnimation(animName);
 	animName = "jump";
 	m_monk->ChangeAnimation(animName);

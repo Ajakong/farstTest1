@@ -10,6 +10,8 @@ class ControllerCharactor;
 class Actor;
 class File;
 
+enum class PlayerType;
+
 class GamePlayingScene : public Scene
 {
 public:

@@ -36,6 +36,7 @@ public:
 	virtual void Update();
 	virtual void Draw();
 	
+	
 
 protected:
 	using CutTable_t = std::map<std::string, CutRect>;
