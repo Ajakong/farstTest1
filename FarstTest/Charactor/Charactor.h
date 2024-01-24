@@ -30,15 +30,18 @@ public:
 
 	void SetOrigin(int origin);
 
-	void ChangeAnimation(const std::string& animName);
+	void ChangeAnimation(const std::string& animName,bool isLoop=true);
 	void SetAnimationSpeed(int interval);
-
+	void SetTurn(bool isTurn);
 	virtual void Update();
 	virtual void Draw();
 	
 	
+	
 
 protected:
+	bool m_isLoop = true;
+	bool m_isAnimEnd = false;//アニメーションの最後か(ループの時は使わない)
 	using CutTable_t = std::map<std::string, CutRect>;
 
 	std::string m_currentAnimatingName = "";
@@ -66,7 +69,7 @@ protected:
 	
 	
 	std::string GetAnimationString(const std::string& basename, int index);
-
+	bool IsAnimationEnd();
 protected:
 	// 左右フリップするか
 	bool m_isTurn = false;

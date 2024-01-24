@@ -26,8 +26,10 @@ Charactor::~Charactor()
 
 
 
-void Charactor::ChangeAnimation(const std::string& animName)
+void Charactor::ChangeAnimation(const std::string& animName,bool isLoop)
 {
+	m_isAnimEnd = false;
+	m_isLoop = isLoop;
 	m_currentAnimatingName = animName;
 	m_frame = 0;//アニメーションが切り替わるとリセット
 }
@@ -37,28 +39,44 @@ void Charactor::SetAnimationSpeed(int interval)
 	m_currentAnimInterval = interval;
 }
 
+void Charactor::SetTurn(bool isTurn)
+{
+	m_isTurn = isTurn;
+}
+
 void Charactor::Update()
 {
+
 	if (m_currentAnimatingName != "")
 	{
-		auto idx=(m_frame / m_currentAnimInterval)+m_origin;
-		auto animName=GetAnimationString(m_currentAnimatingName, idx);
+		auto idx = (m_frame / m_currentAnimInterval) + m_origin;
+		auto animName = GetAnimationString(m_currentAnimatingName, idx);
 		//もしカウントアップの結果もうアニメーション枚数がない場合
 		//またアニメーション番号を0にしてやり直す
+		
 		auto it = m_cutTable.find(animName);
 		if (it == m_cutTable.end())
 		{
-			m_frame = 0;
-			auto idx = (m_frame / m_currentAnimInterval) + m_origin;
-			animName = GetAnimationString(m_currentAnimatingName, idx);
-			it = m_cutTable.find(animName);
-			if (it == m_cutTable.end())
+			if (m_isLoop)
 			{
-				m_currentAnimatingName = "";
+				m_frame = 0;
+				auto idx = (m_frame / m_currentAnimInterval) + m_origin;
+				animName = GetAnimationString(m_currentAnimatingName, idx);
+				it = m_cutTable.find(animName);
+				if (it == m_cutTable.end())
+				{
+					m_currentAnimatingName = "";
 				return;
+				}
+			}
+			else
+			{
+				
 			}
 		}
 		m_currentCut = it->second;
+		
+	
 	}
 	m_frame++;
 	
@@ -88,10 +106,12 @@ void Charactor::Draw()
 	}
 
 	
-	DrawRectRotaGraph(m_pos.x + rc.offsetX * m_drawScale, m_pos.y + rc.offsetY * m_drawScale,
-		rc.x, rc.y, rc.w, rc.h,
+	DrawRectRotaGraph2(m_pos.x + rc.offsetX * m_drawScale, m_pos.y + rc.offsetY * m_drawScale,
+		rc.x, rc.y, rc.w, rc.h,rc.w/2,rc.h,
 		m_drawScale, 0,
 		m_imgFile->GetHandle(), true,m_isTurn);
+		
+	//DrawCircle(m_pos.x + rc.offsetX * m_drawScale, m_pos.y, 3, 0x00ff00);
 }
 
 
@@ -109,6 +129,11 @@ std::string Charactor::GetAnimationString(const std::string& basename, int index
 	oss << std::setw(m_digits) << std::setfill('0') << index;
 	oss << ".png";
 	return oss.str();//文字列として返すためにstr()関数で返す
+}
+
+bool Charactor::IsAnimationEnd()
+{
+	return m_isAnimEnd;
 }
 
 
