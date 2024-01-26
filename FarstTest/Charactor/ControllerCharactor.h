@@ -13,8 +13,6 @@ enum class PlayerType
 //制御できるキャラクター　
 class ControllerCharactor : public Charactor
 {
-
-	
 	Vector2 m_vel = {};//速度
 	Vector2 m_accel = {};//加速度
 	void Jump();//ジャンプイベント

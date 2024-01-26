@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Stage\BackGround.cpp" />
     <ClCompile Include="Charactor\Actor.cpp" />
     <ClCompile Include="Charactor\Charactor.cpp" />
     <ClCompile Include="Charactor\ControllerCharactor.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Stage\BackGround.h" />
     <ClInclude Include="Charactor\Actor.h" />
     <ClInclude Include="Charactor\Charactor.h" />
     <ClInclude Include="Charactor\ControllerCharactor.h" />

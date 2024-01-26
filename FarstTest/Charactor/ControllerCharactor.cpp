@@ -222,6 +222,7 @@ ControllerCharactor::ControllerCharactor(FileManager& fileManager, std::wstring 
 	{
 		std::string str = "adventurer-run-";
 		this->ChangeAnimation(str);
+		this->SetOrigin(0);
 	}
 }
 

@@ -1,10 +1,7 @@
 #pragma once
+#include"Geometry.h"
 
-struct Size
-{
-	int w;
-	int h;
-};
+
 
 /// <summary>
 /// アプリケーション全体を管理するクラス

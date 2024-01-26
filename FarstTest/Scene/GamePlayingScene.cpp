@@ -11,6 +11,7 @@
 #include "../Charactor/ControllerCharactor.h"
 #include"../Charactor/Charactor.h"
 #include "../Charactor/Actor.h"
+#include"../Stage/BackGround.h"
 
 
 GamePlayingScene::GamePlayingScene(SceneManager& manager) :
@@ -31,6 +32,8 @@ GamePlayingScene::GamePlayingScene(SceneManager& manager) :
 
 	m_actors.push_back(m_hero);
 	m_actors.push_back(m_monk);
+
+	m_backGround = std::make_shared<BackGround>(fileMgr);
 
 	m_frame = 60;
 	m_updateFunc = &GamePlayingScene::FadeInUpdate;
@@ -190,6 +193,8 @@ void GamePlayingScene::NormalUpdate(Input& input)
 	m_fps = GetFPS();
 	m_btnFrame++;
 
+	m_backGround->Update();
+
 	for (const auto& actor : m_actors)
 	{
 		actor->Update();
@@ -220,6 +225,8 @@ void GamePlayingScene::FadeDraw()
 
 void GamePlayingScene::NormalDraw()
 {
+	m_backGround->Draw();
+
 	DrawString(10, 100, L"GamePlayingScene", 0xffffff);
 	DrawGraph(100, 100, m_imgFile->GetHandle(), true);
 	DrawFormatString(10, 10, 0xffffff, L"fps = %2.2f", m_fps);
@@ -229,11 +236,11 @@ void GamePlayingScene::NormalDraw()
 	constexpr int kButtonSize = 16;
 	constexpr float kBtnScale = 3.0f;
 	DrawRectRotaGraph(0 + (kButtonSize * kBtnScale) / 2, size.h - (kButtonSize * kBtnScale) / 2,// 画面の左下
-		idx * kButtonSize, 0,// 元画像切り取り左上
-		kButtonSize, kButtonSize,// 切り取りサイズ
-		kBtnScale, //拡大率
-		0.0,
-		m_btnImg->GetHandle(), true);
+	idx * kButtonSize, 0,// 元画像切り取り左上
+	kButtonSize, kButtonSize,// 切り取りサイズ
+	kBtnScale, //拡大率
+	0.0,
+	m_btnImg->GetHandle(), true);
 
 	// キャラクターの表示
 	// 主人公
