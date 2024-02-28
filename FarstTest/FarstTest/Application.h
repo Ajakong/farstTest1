@@ -1,7 +1,5 @@
 #pragma once
-#include"Geometry.h"
-
-
+#include "Geometry.h"
 
 /// <summary>
 /// アプリケーション全体を管理するクラス
@@ -21,8 +19,6 @@ private:
 	/// 後処理を行う
 	/// </summary>
 	void Terminate();
-
-	
 public:
 	/// <summary>
 	/// Applicationのシングルトンインスタンスを返す
@@ -37,9 +33,8 @@ public:
 	bool Init();
 	void Run();
 
-	float GetGravity() const;
-
 	const Size& GetWindowSize() const;
+	float GetGravity() const;
 
 };
 

@@ -5,6 +5,7 @@ struct Size
 	int w;
 	int h;
 };
+
 /// <summary>
 /// ベクトルクラス
 /// </summary>
@@ -53,3 +54,35 @@ float Dot(const Vector2& lVal, const Vector2& rVal);
 
 // ぱっと見で分かりやすいように別名(座標)
 using Position2 = Vector2;
+
+///矩形構造体
+struct Rect
+{
+	Position2 pos;//矩形の中心
+	Size size;
+	/// <summary>
+	/// 矩形の左位置Xを返す
+	/// </summary>
+	/// <returns>矩形の左位置X</returns>
+	int Left()const;
+	/// <summary>
+	/// 矩形の右位置Xを返す
+	/// </summary>
+	/// <returns>矩形の右位置X</returns>
+	int Right()const;
+	/// <summary>
+	/// 矩形の上位置Yを返す
+	/// </summary>
+	/// <returns>矩形の上位置Y</returns>
+	int Top()const;
+	/// <summary>
+	/// 矩形の下位置Yを返す
+	/// </summary>
+	/// <returns>矩形の下位置Y</returns>
+	int Bottom()const;
+
+	/// <summary>
+	/// デバッグ用関数:矩形を線で表示する
+	/// </summary>
+	void Draw(int color = 0xffffff);
+};

@@ -6,12 +6,11 @@
 
 
 class Charactor;
-class ControllerCharactor;
+class ControllerCharacter;
 class Actor;
 class File;
-class BackGround;
-
-enum class PlayerType;
+class Background;
+class Camera;
 
 class GamePlayingScene : public Scene
 {
@@ -24,14 +23,16 @@ public:
 private:
     std::shared_ptr<File> m_imgFile;
     std::shared_ptr<File> m_btnImg;
-    std::shared_ptr<ControllerCharactor> m_hero;
-    std::shared_ptr<ControllerCharactor> m_monk;
-    std::shared_ptr<BackGround> m_backGround;
+    std::shared_ptr<ControllerCharacter> m_hero;
+    std::shared_ptr<ControllerCharacter> m_monk;
+    std::shared_ptr<Background> m_background;
+
+
+    std::shared_ptr<Camera> m_camera;
     std::vector<std::shared_ptr<Actor>> m_actors;
 
     int m_btnFrame = 0;
     int m_frame = 0;
-    int m_digits;
     float m_fps = 0.0f;
 
     // メンバ関数ポインタの宣言

@@ -8,36 +8,39 @@
 #include "PauseScene.h"
 #include "../FileSystem/FileManager.h"
 #include "../FileSystem/File.h"
+#include "../Charactor/Charactor.h"
 #include "../Charactor/ControllerCharactor.h"
-#include"../Charactor/Charactor.h"
 #include "../Charactor/Actor.h"
-#include"../Stage/BackGround.h"
+#include "../Stage/Background.h"
+#include "../Game/Camera.h"
 
 
 GamePlayingScene::GamePlayingScene(SceneManager& manager) :
 	Scene(manager)
 {
 	auto& fileMgr = m_manager.GetFileManager();
-	m_imgFile = fileMgr.LoadGraphic(L"./Image/game.png");
-	m_btnImg = fileMgr.LoadGraphic(L"./Image/UI/xbox_buttons.png", true);
+	m_imgFile = fileMgr.LoadGraphic(L"./Data/Image/game.png");
+	m_btnImg = fileMgr.LoadGraphic(L"./Data/Image/UI/xbox_buttons.png", true);
 	
-	m_hero = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/hero",PlayerType::hero,1 ,Position2{ 220, 240 }, 3.0f);
-	m_monk = std::make_shared<ControllerCharactor>(fileMgr, L"./Image/Charctor/monk",PlayerType::hero,2, Position2{ 420, 240 }, 2.0f);
+	m_camera = std::make_shared<Camera>();
+
+	m_hero = std::make_shared<ControllerCharacter>(fileMgr,*m_camera, L"./Data/Image/Charctor/hero", PlayerType::hero, 2, Position2{ 220, 240 }, 3.0f);
+	m_monk = std::make_shared<ControllerCharacter>(fileMgr, *m_camera, L"./Data/Image/Charctor/monk", PlayerType::monk, 1, Position2{ 420, 240 }, 2.0f);
 	m_monk->SetOrigin(1);
 
-	std::string animName = "adventurer-run-";
-	m_hero->ChangeAnimation(animName);
-	animName = "jump";
-	m_monk->ChangeAnimation(animName);
+	m_hero->ChangeAnimation("adventurer-idle-");
+	m_hero->SetAnimationSpeed(10);
+	m_monk->ChangeAnimation("idle");
+	m_monk->SetAnimationSpeed(10);
 
 	m_actors.push_back(m_hero);
 	m_actors.push_back(m_monk);
 
-	m_backGround = std::make_shared<BackGround>(fileMgr);
-
 	m_frame = 60;
 	m_updateFunc = &GamePlayingScene::FadeInUpdate;
 	m_drawFunc = &GamePlayingScene::FadeDraw;
+
+	m_background = std::make_shared<Background>(fileMgr, * m_camera );
 
 	//m_fileNames =
 	//{
@@ -159,14 +162,13 @@ GamePlayingScene::~GamePlayingScene()
 
 void GamePlayingScene::Update(Input& input)
 {
-	m_fps = GetFPS();
 	(this->*m_updateFunc)(input);
-	
 }
 
 void GamePlayingScene::Draw()
 {
 	(this->*m_drawFunc)();
+//	DrawLineAA(0, 400, 640, 400, 0xffffff, 3.0f);
 }
 
 void GamePlayingScene::FadeInUpdate(Input& input)
@@ -193,8 +195,12 @@ void GamePlayingScene::NormalUpdate(Input& input)
 	m_fps = GetFPS();
 	m_btnFrame++;
 
-	m_backGround->Update();
+	auto pos=m_hero->GetPosition()+ m_monk->GetPosition();
+	pos /= 2.0f;
+	m_camera->SetPos(pos);
+	m_background->Update();
 
+	// アクターの状態更新
 	for (const auto& actor : m_actors)
 	{
 		actor->Update();
@@ -214,8 +220,8 @@ void GamePlayingScene::FadeOutUpdate(Input& input)
 
 void GamePlayingScene::FadeDraw()
 {
+	m_background->Draw();
 	DrawString(10, 100, L"GamePlayingScene", 0xffffff);
-	DrawGraph(100, 100, m_imgFile->GetHandle(), true);
 
 	int alpha = static_cast<int>(255 * (static_cast<float>(m_frame) / 60.0f));
 	SetDrawBlendMode(DX_BLENDMODE_MULA, alpha);
@@ -225,10 +231,8 @@ void GamePlayingScene::FadeDraw()
 
 void GamePlayingScene::NormalDraw()
 {
-	m_backGround->Draw();
-
+	m_background->Draw();
 	DrawString(10, 100, L"GamePlayingScene", 0xffffff);
-	DrawGraph(100, 100, m_imgFile->GetHandle(), true);
 	DrawFormatString(10, 10, 0xffffff, L"fps = %2.2f", m_fps);
 	auto& app = Application::GetInstance();
 	auto size = app.GetWindowSize();
@@ -236,11 +240,11 @@ void GamePlayingScene::NormalDraw()
 	constexpr int kButtonSize = 16;
 	constexpr float kBtnScale = 3.0f;
 	DrawRectRotaGraph(0 + (kButtonSize * kBtnScale) / 2, size.h - (kButtonSize * kBtnScale) / 2,// 画面の左下
-	idx * kButtonSize, 0,// 元画像切り取り左上
-	kButtonSize, kButtonSize,// 切り取りサイズ
-	kBtnScale, //拡大率
-	0.0,
-	m_btnImg->GetHandle(), true);
+		idx * kButtonSize, 0,// 元画像切り取り左上
+		kButtonSize, kButtonSize,// 切り取りサイズ
+		kBtnScale, //拡大率
+		0.0,
+		m_btnImg->GetHandle(), true);
 
 	// キャラクターの表示
 	// 主人公

@@ -12,8 +12,8 @@ GameOverScene::GameOverScene(SceneManager& mgr) :
 	Scene(mgr)
 {
 	auto& fileMgr = m_manager.GetFileManager();
-	m_imgFile = fileMgr.LoadGraphic(L"./Image/gameOver.png");
-	m_btnImg = fileMgr.LoadGraphic(L"./Image/UI/xbox_buttons.png", true);
+	m_imgFile = fileMgr.LoadGraphic(L"./Data/Image/gameOver.png");
+	m_btnImg = fileMgr.LoadGraphic(L"./Data/Image/UI/xbox_buttons.png", true);
 	m_frame = 60;
 	m_updateFunc = &GameOverScene::FadeInUpdate;
 	m_drawFunc = &GameOverScene::FadeDraw;

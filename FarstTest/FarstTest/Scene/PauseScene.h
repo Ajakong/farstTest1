@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 class Input;
-class SceneManager;
+class ScneManager;
 /// <summary>
 /// ポーズ時のシーンクラス
 /// </summary>

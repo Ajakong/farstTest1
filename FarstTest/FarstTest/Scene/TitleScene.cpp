@@ -17,10 +17,10 @@ TitleScene::TitleScene(SceneManager& manager) :
 	Scene(manager)
 {
 	auto& fileMgr = m_manager.GetFileManager();
-	m_titleImg = fileMgr.LoadGraphic(L"./Image/title.png");
-	m_buttonsImg = fileMgr.LoadGraphic(L"./Image/UI/xbox_buttons.png", true);
-	m_coinSE = fileMgr.LoadSound(L"./Sound/coin.wav");
-	m_explosionImg = fileMgr.LoadGraphic(L"./Image/Effect/explosion.png");
+	m_titleImg = fileMgr.LoadGraphic(L"./Data/Image/title.png");
+	m_buttonsImg = fileMgr.LoadGraphic(L"./Data/Image/UI/xbox_buttons.png", true);
+	m_coinSE = fileMgr.LoadSound(L"./Data/Sound/coin.wav");
+	m_explosionImg = fileMgr.LoadGraphic(L"./Data/Image/Effect/explosion.png");
 	m_fadeFrame = 60;
 	m_updateFunc = &TitleScene::FadeInUpdate;
 	m_drawFunc = &TitleScene::FadeDraw;
