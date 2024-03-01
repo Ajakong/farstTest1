@@ -162,6 +162,7 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="FileSystem\SoundFile.cpp" />
+    <ClCompile Include="Stage\BGPart.cpp" />
     <ClCompile Include="StringUtility.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
   </ItemGroup>
@@ -184,6 +185,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="FileSystem\SoundFile.h" />
+    <ClInclude Include="Stage\BGPart.h" />
     <ClInclude Include="StringUtility.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>

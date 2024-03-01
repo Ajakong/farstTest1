@@ -13,7 +13,7 @@ struct Vector2
 {
 	float x;
 	float y;
-
+	
 	Vector2 operator+(const Vector2& val) const;
 	Vector2 operator-(const Vector2& val) const;
 	Vector2 operator*(float scale) const;

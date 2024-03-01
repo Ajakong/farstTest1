@@ -88,7 +88,7 @@ void ControllerCharacter::ReturnNetural()
 
 void ControllerCharacter::Jump()
 {
-	/*m_jumpFrame = 0;*/
+	
 	m_vel.y = m_jumpSpeed;
 	m_accel.y = g;
 	m_jumpFrame = kJumpLimitFrame;
@@ -216,10 +216,8 @@ void ControllerCharacter::NeutralUpdate()
 void ControllerCharacter::JumpUpdate()
 {
 	m_jumpFrame++;
-	if (m_currentInput.IsReleased("jump"))
-	{
-		m_accel.y = -m_vel.y / 10.0f;
-	}
+	m_accel.y = -m_vel.y / 10.0f;
+	
 	m_updateFunc = &ControllerCharacter::AerialUpdate;
 }
 
@@ -236,7 +234,7 @@ void ControllerCharacter::AerialUpdate()
 	}
 	else
 	{
-		m_jumpFrame--;
+		m_jumpFrame-=2;
 	}
 	m_pos += m_vel;
 	
