@@ -59,8 +59,8 @@ void Background::BackDraw()
 	GetGraphSize(m_ground->GetHandle(), &gsize.w, &gsize.h);
 
 	/*int scrollBG2 = (int)(m_scrollX * 0.25) % (int)(bg1Size.w * kBackgroundScale);
-	int scrollBG1 = (int)(m_scrollX * 0.5) % (int)(bg2Size.w * kBackgroundScale);
-	int scrollFG = (int)m_scrollX % (int)(gsize.w * kBackgroundScale);*/
+	int scrollBG1 = (int)(m_scrollX * 0.5) % (int)(bg2Size.w * kBackgroundScale);*/
+	int scrollFG = (int)m_scrollX % (int)(gsize.w * kBackgroundScale);
 
 	/*for (int index = 0; index < 2; index++)
 	{
@@ -93,19 +93,19 @@ void Background::BackDraw()
 	Size housesSize;
 	GetGraphSize(m_houses[0]->GetHandle(), &housesSize.w, &housesSize.h);
 
-	/*DrawRotaGraph2(
+	DrawRotaGraph2(
 		-m_scrollX + housesSize.w * kBackgroundScale,
 		wsize.h - gsize.h - static_cast<int>(housesSize.h * kBackgroundScale),
 		0, 0,
-		kBackgroundScale, 0.0, m_houses[0]->GetHandle(), true);*/
-	/*for (int index = 0; index < gnum; index++)
+		kBackgroundScale, 0.0, m_houses[0]->GetHandle(), true);
+	for (int index = 0; index < gnum; index++)
 	{
 		DrawRotaGraph2(
 			-scrollFG + index * gsize.w * kBackgroundScale,
 			wsize.h - static_cast<int>(gsize.h * kBackgroundScale),
 			0, 0,
 			kBackgroundScale, 0.0, m_ground->GetHandle(), true);
-	}*/
+	}
 
 	
 }

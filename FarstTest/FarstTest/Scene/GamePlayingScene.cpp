@@ -39,12 +39,10 @@ GamePlayingScene::GamePlayingScene(SceneManager& manager) :
 	m_frame = 60;
 	m_updateFunc = &GamePlayingScene::FadeInUpdate;
 	m_drawFunc = &GamePlayingScene::FadeDraw;
-	Vector2 rate;
-	rate.x =1.0f;
-	rate.y = 1.0f;
+	
 	m_background = std::make_shared<Background>(fileMgr, * m_camera);
-	m_background->AddBGPart(L"Data/Image/Bg/background.png",2.0f,rate);
-	m_background->AddBGPart(L"Data/Image/Bg/ground.png", 2.0f, rate);
+	m_background->AddBGPart(L"Data/Image/Bg/background.png",2.0f,Vector2(0.5f,1.0f),0);
+	m_background->AddBGPart(L"Data/Image/Bg/middleground.png", 2.0f, Vector2(1.0f,1.0f),1);
 	
 	m_background->Ready();
 	//m_fileNames =

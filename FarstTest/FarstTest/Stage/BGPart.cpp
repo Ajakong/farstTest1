@@ -38,13 +38,12 @@ void BGPart::Draw(const Camera& camera)
 	GetGraphSize(handle,&gsize.w,&gsize.h);
 	auto gnum = (wsize.w * (wsize.w * m_scale));
 	const auto& range =camera.GetRange();
-	int m_scrollX = camera.GetRange().Left();
-	int m_scrollY = camera.GetRange().Bottom();
-	int scrollBG2 = (int)(m_scrollX * 0.25) % (int)(gsize.w *m_scale);
+	int scrollX = range.Left()*m_rate.x;
+
 	for (int index = 0; index < 2; index++)
 	{
 		DrawRotaGraph2(
-			-scrollBG2 + index * gsize.w *m_scale,
+			-scrollX + index * gsize.w *m_scale,
 			wsize.h - static_cast<int>(gsize.h * m_scale),
 			0, 0,
 			m_scale, 0.0, handle, true);

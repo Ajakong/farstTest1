@@ -2,6 +2,18 @@
 #include "cassert"
 #include "cmath"
 
+Vector2::Vector2()
+{
+    x = 0.0f;
+    y = 0.0f;
+}
+
+Vector2::Vector2(float inx, float iny)
+{
+    x = inx;
+    y = iny;
+}
+
 Vector2 Vector2::operator+(const Vector2& val) const
 {
     return {x + val.x, y + val.y};
