@@ -13,6 +13,7 @@
 #include "../Charactor/Actor.h"
 #include "../Stage/Background.h"
 #include "../Game/Camera.h"
+#include"../Stage/Stage.h"
 
 
 GamePlayingScene::GamePlayingScene(SceneManager& manager) :
@@ -40,6 +41,11 @@ GamePlayingScene::GamePlayingScene(SceneManager& manager) :
 	m_updateFunc = &GamePlayingScene::FadeInUpdate;
 	m_drawFunc = &GamePlayingScene::FadeDraw;
 	
+	m_stage=std::make_shared<Stage>(L"data/Map/stage1",fileMgr,*m_camera);
+
+
+
+
 	m_background = std::make_shared<Background>(fileMgr, * m_camera);
 	m_background->AddBGPart(L"Data/Image/Bg/background.png",2.0f,Vector2(0.5f,1.0f),0);
 	m_background->AddBGPart(L"Data/Image/Bg/middleground.png", 2.0f, Vector2(1.0f,1.0f),1);
@@ -248,6 +254,8 @@ void GamePlayingScene::NormalDraw()
 		kBtnScale, //拡大率
 		0.0,
 		m_btnImg->GetHandle(), true);
+
+	m_stage->Draw();
 
 	// キャラクターの表示
 	// 主人公

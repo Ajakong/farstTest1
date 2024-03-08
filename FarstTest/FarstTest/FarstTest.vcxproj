@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
+    <ClCompile Include="Stage\Stage.cpp" />
     <ClCompile Include="Stage\Background.cpp" />
     <ClCompile Include="Charactor\Actor.cpp" />
     <ClCompile Include="Charactor\Charactor.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Game\Camera.h" />
+    <ClInclude Include="Stage\Stage.h" />
     <ClInclude Include="Stage\Background.h" />
     <ClInclude Include="Charactor\Actor.h" />
     <ClInclude Include="Charactor\Charactor.h" />

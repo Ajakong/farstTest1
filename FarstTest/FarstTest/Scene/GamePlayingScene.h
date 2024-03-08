@@ -11,6 +11,7 @@ class Actor;
 class File;
 class Background;
 class Camera;
+class Stage;
 
 class GamePlayingScene : public Scene
 {
@@ -26,14 +27,15 @@ private:
     std::shared_ptr<ControllerCharacter> m_hero;
     std::shared_ptr<ControllerCharacter> m_monk;
     std::shared_ptr<Background> m_background;
-
-
+    std::shared_ptr<Stage> m_stage;;
     std::shared_ptr<Camera> m_camera;
     std::vector<std::shared_ptr<Actor>> m_actors;
 
     int m_btnFrame = 0;
     int m_frame = 0;
     float m_fps = 0.0f;
+
+   
 
     // メンバ関数ポインタの宣言
     using UpdateFunc_t = void (GamePlayingScene::*)(Input&);
