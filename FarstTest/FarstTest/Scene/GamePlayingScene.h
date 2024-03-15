@@ -27,7 +27,7 @@ private:
     std::shared_ptr<ControllerCharacter> m_hero;
     std::shared_ptr<ControllerCharacter> m_monk;
     std::shared_ptr<Background> m_background;
-    std::shared_ptr<Stage> m_stage;;
+    std::shared_ptr<Stage> m_stage;
     std::shared_ptr<Camera> m_camera;
     std::vector<std::shared_ptr<Actor>> m_actors;
 
